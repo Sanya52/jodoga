@@ -25,12 +25,11 @@ namespace ConsoleApp1
         public int value;
         public double weight;
         public bool locked=true;
-        //public List<Item> items=new List<Item>();
-        public Item[] items;
+        public List<Item> items = new List<Item>();
         public int calculateValue()
         {
             int seged = 0;
-            for (int i = 0; i < items.Length; i++)
+            for (int i = 0; i < items.Count; i++)
             {
                 seged += items[i].value;
                 
@@ -46,7 +45,8 @@ namespace ConsoleApp1
             this.value = 10;
             this.weight = 20;
             this.locked = false;
-            
+            this.items.Add(new Item("wc papír", "tisztálkodás", 80));
+            this.items.Add(new Item("víz", "hidratálás", 90));
 
         }
 
@@ -73,9 +73,10 @@ namespace ConsoleApp1
     {
         public SmallChest() {
             this.name = "Szegény ember tartaléka";
-            this.items = { new Item("villa", "tárgy", 3); new Item("pisztoly", "fegyver", 7); new Item("szalámi", "étel", 1) }
+            this.items.Add(new Item("villa", "tárgy", 20));
+            this.items.Add(new Item("tojás", "étel", 5));
             this.value = this.calculateValue();
-            this.lockpickDifficulty = 1;
+            this.lockpickDifficulty = 30;
 
         }
     
@@ -85,7 +86,8 @@ namespace ConsoleApp1
         public MediumChest()
         {
             this.name = "A keresők találója";
-          //  this.items = new Item("tanyer", "asd", 10)
+            this.items.Add(new Item("villa", "tárgy", 20));
+            this.items.Add(new Item("tojás", "étel", 5));
             this.value = this.calculateValue();
             this.lockpickDifficulty = 60;
         }
@@ -96,7 +98,6 @@ namespace ConsoleApp1
         public GreatChest()
         {
             this.name = "A szerencsések megmentője";
-            //  this.items = new Item("tanyer", "asd", 10)
             this.value = this.calculateValue();
             this.lockpickDifficulty = 85;
         }
@@ -107,7 +108,12 @@ namespace ConsoleApp1
         {
             Backpack b = new Backpack();
             SmallChest s = new SmallChest();
-            GreatChest g = new GreatChest();
+            Console.WriteLine("Backback tartalom:");
+            foreach (var item in b.items)
+            {
+                Console.WriteLine(item.name + " " + item.type + " " + item.value);
+            }
+            Console.WriteLine("\nSmall chest tartalom: ");
             if (s.locked==true)
             {
                 foreach (var item in s.items)
@@ -119,7 +125,7 @@ namespace ConsoleApp1
             {
                 Console.WriteLine("Láda feltörése sikertelen");
             }
-
+            
 
             Console.ReadKey();
         }
